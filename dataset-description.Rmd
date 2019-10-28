@@ -17,7 +17,16 @@ dataset <- read.csv('dataset_diabetes/diabetic_data.csv') %>% mutate(
   diag_1 = str_sub(diag_1, 0, 3),
   diag_2 = str_sub(diag_2, 0, 3),
   diag_3 = str_sub(diag_3, 0, 3)
-  )
+) %>% mutate(
+  diag_1 = ifelse(str_length(diag_1) == 1 & diag_1 != '?', str_c('00', diag_1), diag_1),
+  diag_2 = ifelse(str_length(diag_2) == 1 & diag_2 != '?', str_c('00', diag_2), diag_2),
+  diag_3 = ifelse(str_length(diag_3) == 1 & diag_3 != '?', str_c('00', diag_3), diag_3),
+) %>% mutate(
+  diag_1 = ifelse(str_length(diag_1) == 2 & diag_1 != '?', str_c('0', diag_1), diag_1),
+  diag_2 = ifelse(str_length(diag_2) == 2 & diag_2 != '?', str_c('0', diag_2), diag_2),
+  diag_3 = ifelse(str_length(diag_3) == 2 & diag_3 != '?', str_c('0', diag_3), diag_3),
+)
+write.csv(dataset, file='dataset_diabetes/diabetic_data_cleaned.csv')
 icd.codes <- read.csv('icd_codes.csv')
 diabetes.diagnoses <- c('249', '250', '648')
 ```

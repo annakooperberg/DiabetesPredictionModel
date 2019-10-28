@@ -12,7 +12,7 @@ Code,Diagnosis
 011,Pulmonary tuberculosis
 012,Other respiratory tuberculosis
 013,Tuberculosis of meninges and central nervous system
-014,|Tuberculosis of intestines, peritoneum, and mesenteric glands|
+014,Tuberculosis of intestines peritoneum and mesenteric glands
 015,Tuberculosis of bones and joints
 016,Tuberculosis of genitourinary system
 017,Tuberculosis of other organs
@@ -80,12 +80,12 @@ Code,Diagnosis
 087,Relapsing fever
 088,Other arthropod-borne diseases
 090,Congenital syphilis
-091,|Early syphilis, symptomatic|
-092,|Early syphilis, latent|
+091,Early syphilis symptomatic
+092,Early syphilis latent
 093,Cardiovascular syphilis
 094,Neurosyphilis
-095,|Other forms of late syphilis, with symptoms|
-096,|Late syphilis, latent|
+095,Other forms of late syphilis with symptoms
+096,Late syphilis latent
 097,Other and unspecified syphilis
 098,Gonococcal infections
 099,Other venereal diseases
@@ -95,7 +95,7 @@ Code,Diagnosis
 103,Pinta
 104,Other spirochaetal infection
 110,Dermatophytosis
-111,|Dermatomycosis, other and unspecified|
+111,Dermatomycosis other and unspecified
 112,Candidiasis
 114,Coccidioidomycosis
 115,Histoplasmosis
@@ -111,7 +111,7 @@ Code,Diagnosis
 126,Ancylostomiasis and necatoriasis
 127,Other intestinal helminthiases
 128,Other and unspecified helminthiases
-129,|Intestinal parasitism, unspecified|
+129,Intestinal parasitism unspecified
 130,Toxoplasmosis
 131,Trichomoniasis
 132,Pediculosis and phthirus infestation
@@ -133,22 +133,22 @@ Code,Diagnosis
 146,Malignant neoplasm of oropharynx
 147,Malignant neoplasm of nasopharynx
 148,Malignant neoplasm of hypopharynx
-149,|Malignant neoplasm of other and ill-defined sites within the lip,|
+149,Malignant neoplasm of other and ill-defined sites within the lip
 150,Malignant neoplasm of esophagus
 151,Malignant neoplasm of stomach
-152,|Malignant neoplasm of small intestine, including duodenum|
+152,Malignant neoplasm of small intestine including duodenum
 153,Malignant neoplasm of colon
-154,|Malignant neoplasm of rectum, rectosigmoid junction, and anus|
+154,Malignant neoplasm of rectum rectosigmoid junction and anus
 155,Malignant neoplasm of liver and intrahepatic bile ducts
 156,Malignant neoplasm of gallbladder and extrahepatic bile ducts
 157,Malignant neoplasm of pancreas
 158,Malignant neoplasm of retroperitoneum and peritoneum
 159,Malignant neoplasm of other and ill-defined sites within the
-160,|Malignant neoplasm of nasal cavities, middle ear, and accessory|
+160,Malignant neoplasm of nasal cavities middle ear and accessory
 161,Malignant neoplasm of larynx
-162,|Malignant neoplasm of trachea, bronchus, and lung|
+162,Malignant neoplasm of trachea bronchus and lung
 163,Malignant neoplasm of pleura
-164,|Malignant neoplasm of thymus, heart, and mediastinum|
+164,Malignant neoplasm of thymus heart and mediastinum
 165,Malignant neoplasm of other and ill-defined sites within the
 170,Malignant neoplasm of bone and articular cartilage
 171,Malignant neoplasm of connective and other soft tissue
@@ -156,7 +156,7 @@ Code,Diagnosis
 173,Other malignant neoplasm of skin
 174,Malignant neoplasm of female breast
 175,Malignant neoplasm of male breast
-179,|Malignant neoplasm of uterus, part unspecified|
+179,Malignant neoplasm of uterus part unspecified
 180,Malignant neoplasm of cervix uteri
 181,Malignant neoplasm of placenta
 182,Malignant neoplasm of body of uterus
@@ -185,7 +185,7 @@ Code,Diagnosis
 206,Monocytic leukemia
 207,Other specified leukemia
 208,Leukemia of unspecified cell type
-210,|Benign neoplasm of lip, oral cavity, and pharynx|
+210,Benign neoplasm of lip oral cavity and pharynx
 211,Benign neoplasm of other parts of digestive system
 212,Benign neoplasm of respiratory and intrathoracic organs
 213,Benign neoplasm of bone and articular cartilage
@@ -203,7 +203,7 @@ Code,Diagnosis
 225,Benign neoplasm of brain and other parts of nervous system
 226,Benign neoplasm of thyroid glands
 227,Benign neoplasm of other endocrine glands and related structures
-228,|Hemangioma and lymphangioma, any site|
+228,Hemangioma and lymphangioma any site
 229,Benign neoplasm of other and unspecified sites
 230,Carcinoma in situ of digestive organs
 231,Carcinoma in situ of respiratory system
@@ -247,7 +247,7 @@ Code,Diagnosis
 273,Disorders of plasma protein metabolism
 274,Gout
 275,Disorders of mineral metabolism
-276,|Disorders of fluid, electrolyte, and acid-base balance|
+276,Disorders of fluid electrolyte and acid-base balance
 277,Other and unspecified disorders of metabolism
 278,Obesity and other hyperalimentation
 279,Disorders involving the immune mechanism
@@ -278,12 +278,12 @@ Code,Diagnosis
 304,Drug dependence
 305,Nondependent abuse of drugs
 306,Physiological malfunction arising from mental factors
-307,|Special symptoms or syndromes, not elsewhere classified|
+307,Special symptoms or syndromes not elsewhere classified
 308,Acute reaction to stress
 309,Adjustment reaction
 310,Specific nonpsychotic mental disorders following organic brain damage
-311,|Depressive disorder, not elsewhere classified|
-312,|Disturbance of conduct, not elsewhere classified|
+311,Depressive disorder not elsewhere classified
+312,Disturbance of conduct not elsewhere classified
 313,Disturbance of emotions specific to childhood and adolescence
 314,Hyperkinetic syndrome of childhood
 315,Specific delays in development
@@ -293,7 +293,7 @@ Code,Diagnosis
 319,Unspecified mental retardation
 320,Bacterial meningitis
 322,Meningitis of unspecified cause
-323,|Encephalitis, myelitis, and encephalomyelitis|
+323,Encephalitis myelitis and encephalomyelitis
 324,Intracranial and intraspinal abscess
 325,Phlebitis and thrombophlebitis of intracranial venous sinuses
 326,Late effects of intracranial abscess or pyogenic infection
@@ -328,7 +328,7 @@ Code,Diagnosis
 360,Disorders of the globe
 361,Retinal detachments and defects
 362,Other retinal disorders
-363,|Chorioretinal inflammations, scars, and other disorders of choroid|
+363,Chorioretinal inflammations scars and other disorders of choroid
 364,Disorders of iris and ciliary body
 365,Glaucoma
 366,Cataract
@@ -432,22 +432,22 @@ Code,Diagnosis
 481,Pneumococcal pneumonia
 482,Other bacterial pneumonia
 483,Pneumonia due to other specified organism
-485,|Bronchopneumonia, organism unspecified|
-486,|Pneumonia, organism unspecified|
+485,Bronchopneumonia organism unspecified
+486,Pneumonia organism unspecified
 487,Influenza
-490,|Bronchitis, not specified as acute or chronic|
+490,Bronchitis not specified as acute or chronic
 491,Chronic bronchitis
 492,Emphysema
 493,Asthma
 494,Bronchiectasis
 495,Extrinsic allergic alveolitis
-496,|Chronic airway obstruction, not elsewhere classified|
+496,Chronic airway obstruction not elsewhere classified
 500,Coal workers' pneumoconiosis
 501,Asbestosis
 502,Pneumoconiosis due to other silica or silicates
 503,Pneumoconiosis due to other inorganic dust
 504,Pneumonopathy due to inhalation of other dust
-505,|Pneumoconiosis, unspecified|
+505,Pneumoconiosis unspecified
 506,Respiratory conditions due to chemical fumes and vapors
 507,Pneumonitis due to solids and liquids
 508,Respiratory conditions due to other and unspecified external agents
@@ -464,27 +464,27 @@ Code,Diagnosis
 521,Diseases of hard tissues of teeth
 522,Diseases of pulp and periapical tissues
 523,Gingival and periodontal diseases
-524,|Dentofacial anomalies, including malocclusion|
+524,Dentofacial anomalies including malocclusion
 525,Other diseases and conditions of the teeth and supporting structures
 526,Diseases of the jaws
 527,Diseases of the salivary glands
-528,|Diseases of the oral soft tissues, excluding lesions specific for|
+528,Diseases of the oral soft tissues excluding lesions specific for
 529,Diseases and other conditions of the tongue
 530,Diseases of esophagus
 531,Gastric ulcer
 532,Duodenal ulcer
-533,|Peptic ulcer, site unspecified|
+533,Peptic ulcer site unspecified
 534,Gastrojejunal ulcer
 535,Gastritis and duodenitis
 536,Disorders of function of stomach
 537,Other disorders of stomach and duodenum
 540,Acute appendicitis
-541,|Appendicitis, unqualified|
+541,Appendicitis unqualified
 542,Other appendicitis
 543,Other diseases of appendix
 550,Inguinal hernia
-551,|Other hernia of abdominal cavity, with gangrene|
-552,|Other hernia of abdominal cavity with obstruction, without mention|
+551,Other hernia of abdominal cavity with gangrene
+552,Other hernia of abdominal cavity with obstruction without mention
 553,Other hernia of abdominal cavity without mention of obstruction or
 555,Regional enteritis
 556,Idiopathic proctocolitis
@@ -492,7 +492,7 @@ Code,Diagnosis
 558,Other noninfectious gastroenteritis and colitis
 560,Intestinal obstruction without mention of hernia
 562,Diverticula of intestine
-564,|Functional digestive disorders, not elsewhere classified|
+564,Functional digestive disorders not elsewhere classified
 565,Anal fissure and fistula
 566,Abscess of anal and rectal regions
 567,Peritonitis
@@ -511,11 +511,11 @@ Code,Diagnosis
 580,Acute glomerulonephritis
 581,Nephrotic syndrome
 582,Chronic glomerulonephritis
-583,|Nephritis and nephropathy, not specified as acute or chronic|
+583,Nephritis and nephropathy not specified as acute or chronic
 584,Acute renal failure
 585,Chronic renal failure
-586,|Renal failure, unspecified|
-587,|Renal sclerosis, unspecified|
+586,Renal failure unspecified
+587,Renal sclerosis unspecified
 588,Disorders resulting from impaired renal function
 589,Small kidney of unknown cause
 590,Infections of kidney
@@ -525,7 +525,7 @@ Code,Diagnosis
 594,Calculus of lower urinary tract
 595,Cystitis
 596,Other disorders of bladder
-597,|Urethritis, not sexually transmitted, and urethral syndrome|
+597,Urethritis not sexually transmitted and urethral syndrome
 598,Urethral stricture
 599,Other disorders of urethra and urinary tract
 600,Hyperplasia of prostate
@@ -534,26 +534,26 @@ Code,Diagnosis
 603,Hydrocele
 604,Orchitis and epididymitis
 605,Redundant prepuce and phimosis
-606,|Infertility, male|
+606,Infertility male
 607,Disorders of penis
 608,Other disorders of male genital organs
 610,Benign mammary dysplasias
 611,Other disorders of breast
-614,|Inflammatory disease of ovary, fallopian tube, pelvic cellular|
-615,|Inflammatory diseases of uterus, except cervix|
-616,|Inflammatory disease of cervix, vagina, and vulva|
+614,Inflammatory disease of ovary fallopian tube pelvic cellular
+615,Inflammatory diseases of uterus except cervix
+616,Inflammatory disease of cervix vagina and vulva
 617,Endometriosis
 618,Genital prolapse
 619,Fistula involving female genital tract
-620,|Noninflammatory disorders of ovary, fallopian tube, and broad ligament|
-621,|Disorders of uterus, not elsewhere classified|
+620,Noninflammatory disorders of ovary fallopian tube and broad ligament
+621,Disorders of uterus not elsewhere classified
 622,Noninflammatory disorders of cervix
 623,Noninflammatory disorders of vagina
 624,Noninflammatory disorders of vulva and perineum
 625,Pain and other symptoms associated with female genital organs
 626,Disorders of menstruation and other abnormal bleeding from female
 627,Menopausal and postmenopausal disorders
-628,|Infertility, female|
+628,Infertility female
 629,Other disorders of female genital organs
 630,Hydatidiform mole
 631,Other abnormal product of conception
@@ -566,14 +566,14 @@ Code,Diagnosis
 638,Failed attempted abortion
 639,Complications following abortion and ectopic and molar pregnancies
 640,Hemorrhage in early pregnancy
-641,|Antepartum hemorrhage, abruptio placentae, and placenta previa|
-642,|Hypertension complicating pregnancy, childbirth, and the puerperium|
+641,Antepartum hemorrhage abruptio placentae and placenta previa
+642,Hypertension complicating pregnancy childbirth and the puerperium
 643,Excessive vomiting in pregnancy
 644,Early or threatened labor
 645,Prolonged pregnancy
-646,|Other complications of pregnancy, not elsewhere classified|
+646,Other complications of pregnancy not elsewhere classified
 647,Infective and parasitic conditions in the mother classifiable
-648,|Other current conditions in the mother classifiable elsewhere, but|
+648,Other current conditions in the mother classifiable elsewhere but
 650,Delivery in a completely normal case
 651,Multiple gestation
 652,Malposition and malpresentation of fetus
@@ -591,14 +591,14 @@ Code,Diagnosis
 664,Trauma to perineum and vulva during delivery
 665,Other obstetrical trauma
 666,Postpartum hemorrhage
-667,|Retained placenta or membranes, without hemorrhage|
+667,Retained placenta or membranes without hemorrhage
 668,Complications of the administration of anesthetic or other sedation
-669,|Other complications of labor and delivery, not elsewhere classified|
+669,Other complications of labor and delivery not elsewhere classified
 670,Major puerperal infection
 671,Venous complications in pregnancy and the puerperium
 672,Pyrexia of unknown origin during the puerperium
 673,Obstetrical pulmonary embolism
-674,|Other and unspecified complications of the puerperium, not elsewhere|
+674,Other and unspecified complications of the puerperium not elsewhere
 675,Infections of the breast and nipple associated with childbirth
 676,Other disorders of the breast associated with childbirth and
 680,Carbuncle and furuncle
@@ -643,10 +643,10 @@ Code,Diagnosis
 724,Other and unspecified disorders or back
 725,Polymyalgia rheumatica
 726,Peripheral enthesopathies and allied syndromes
-727,|Other disorders of synovium, tendon and bursa|
-728,|Disorders of muscle, ligament, and fascia|
+727,Other disorders of synovium tendon and bursa
+728,Disorders of muscle ligament and fascia
 729,Other disorders of soft tissues
-730,|Osteomyelitis, periostitis, and other infections involving bone|
+730,Osteomyelitis periostitis and other infections involving bone
 731,Osteitis deformans and osteopathies associated with other disorders
 732,Osteochondropathies
 733,Other disorders of bone and cartilage
@@ -655,12 +655,12 @@ Code,Diagnosis
 736,Other acquired deformities of limbs
 737,Curvature of spine
 738,Other acquired deformity
-739,|Nonallopathic lesions, not elsewhere classified|
+739,Nonallopathic lesions not elsewhere classified
 740,Anencephalus and similar anomalies
 741,Spina bifida
 742,Other congenital anomalies of nervous system
 743,Congenital anomalies of eye
-744,|Congenital anomalies of ear, face, and neck|
+744,Congenital anomalies of ear face and neck
 745,Bulbus cordis anomalies and anomalies of cardiac septal closure
 746,Other congenital anomalies of heart
 747,Other congenital anomalies of circulatory system
@@ -678,7 +678,7 @@ Code,Diagnosis
 759,Other and unspecified congenital anomalies
 760,Fetus or newborn affected by material conditions which may be
 761,Fetus or newborn affected by maternal complications of pregnancy
-762,|Fetus or newborn affected by complications of placenta, cord, and|
+762,Fetus or newborn affected by complications of placenta cord and
 763,Fetus or newborn affected by other complications of labor and delivery
 764,Slow fetal growth and fetal malnutrition
 765,Disorders relating to short gestation and unspecified low birthweight
@@ -689,7 +689,7 @@ Code,Diagnosis
 770,Other respiratory conditions of fetus and newborn
 771,Infections specific to the perinatal period
 772,Fetal and neonatal hemorrhage
-773,|Hemolytic disease of fetus or newborn, due to isoimmunization|
+773,Hemolytic disease of fetus or newborn due to isoimmunization
 774,Other perinatal jaundice
 775,Endocrine and metabolic disturbances specific to the fetus and newborn
 776,Hematological disorders of fetus and newborn
@@ -699,7 +699,7 @@ Code,Diagnosis
 780,General symptoms
 781,Symptoms involving nervous and musculoskeletal systems
 782,Symptoms involving skin and other integumentary tissue
-783,|Symptoms concerning nutrition, metabolism and development|
+783,Symptoms concerning nutrition metabolism and development
 784,Symptoms involving head and neck
 785,Symptoms involving cardiovascular system
 786,Symptoms involving respiratory system and other chest symptoms
@@ -714,5 +714,11 @@ Code,Diagnosis
 795,Nonspecific abnormal histological and immunological findings
 796,Other nonspecific abnormal findings
 797,Senility without mention of psychosis
-798,|Sudden death, cause unknown|
+798,Sudden death cause unknown
 799,Other ill-defined and unknown causes of morbidity and mortality
+V45,Automatic implantable cardiac defibrillator in situ
+996,Complications peculiar to certain specified procedures
+V57,Care involving other physical therapy
+820,Fracture of neck of femur
+998,Other complications of procedures not elsewhere classified
+997,Complications affecting specified body system not elsewhere classified

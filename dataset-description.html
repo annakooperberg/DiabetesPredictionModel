@@ -373,7 +373,15 @@ summary {
   diag_1 = str_sub(diag_1, 0, 3),
   diag_2 = str_sub(diag_2, 0, 3),
   diag_3 = str_sub(diag_3, 0, 3)
-  )
+) %&gt;% mutate(
+  diag_1 = ifelse(str_length(diag_1) == 1 &amp; diag_1 != '?', str_c('00', diag_1), diag_1),
+  diag_2 = ifelse(str_length(diag_2) == 1 &amp; diag_2 != '?', str_c('00', diag_2), diag_2),
+  diag_3 = ifelse(str_length(diag_3) == 1 &amp; diag_3 != '?', str_c('00', diag_3), diag_3),
+) %&gt;% mutate(
+  diag_1 = ifelse(str_length(diag_1) == 2 &amp; diag_1 != '?', str_c('0', diag_1), diag_1),
+  diag_2 = ifelse(str_length(diag_2) == 2 &amp; diag_2 != '?', str_c('0', diag_2), diag_2),
+  diag_3 = ifelse(str_length(diag_3) == 2 &amp; diag_3 != '?', str_c('0', diag_3), diag_3),
+)
 icd.codes &lt;- read.csv('icd_codes.csv')
 diabetes.diagnoses &lt;- c('249', '250', '648')</code></pre>
 </div>
@@ -428,7 +436,7 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="even">
 <td align="left">486</td>
 <td align="right">3508</td>
-<td align="left">|Pneumonia</td>
+<td align="left">Pneumonia organism unspecified</td>
 </tr>
 <tr class="odd">
 <td align="left">427</td>
@@ -463,17 +471,17 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="odd">
 <td align="left">996</td>
 <td align="right">1967</td>
-<td align="left">NA</td>
+<td align="left">Complications peculiar to certain specified procedures</td>
 </tr>
 <tr class="even">
 <td align="left">276</td>
 <td align="right">1889</td>
-<td align="left">|Disorders of fluid</td>
+<td align="left">Disorders of fluid electrolyte and acid-base balance</td>
 </tr>
 <tr class="odd">
-<td align="left">38</td>
+<td align="left">038</td>
 <td align="right">1688</td>
-<td align="left">NA</td>
+<td align="left">Septicaemia</td>
 </tr>
 <tr class="even">
 <td align="left">599</td>
@@ -488,7 +496,7 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="even">
 <td align="left">V57</td>
 <td align="right">1207</td>
-<td align="left">NA</td>
+<td align="left">Care involving other physical therapy</td>
 </tr>
 <tr class="odd">
 <td align="left">518</td>
@@ -498,7 +506,7 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="even">
 <td align="left">820</td>
 <td align="right">1082</td>
-<td align="left">NA</td>
+<td align="left">Fracture of neck of femur</td>
 </tr>
 <tr class="odd">
 <td align="left">577</td>
@@ -548,7 +556,7 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="even">
 <td align="left">998</td>
 <td align="right">784</td>
-<td align="left">NA</td>
+<td align="left">Other complications of procedures not elsewhere classified</td>
 </tr>
 <tr class="odd">
 <td align="left">722</td>
@@ -581,9 +589,9 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <td align="left">Diseases of esophagus</td>
 </tr>
 <tr class="odd">
-<td align="left">8</td>
+<td align="left">008</td>
 <td align="right">515</td>
-<td align="left">NA</td>
+<td align="left">Intestinal infections due to other organisms</td>
 </tr>
 <tr class="even">
 <td align="left">403</td>
@@ -623,12 +631,12 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <tr class="odd">
 <td align="left">162</td>
 <td align="right">425</td>
-<td align="left">|Malignant neoplasm of trachea</td>
+<td align="left">Malignant neoplasm of trachea bronchus and lung</td>
 </tr>
 <tr class="even">
 <td align="left">997</td>
 <td align="right">424</td>
-<td align="left">NA</td>
+<td align="left">Complications affecting specified body system not elsewhere classified</td>
 </tr>
 <tr class="odd">
 <td align="left">278</td>
