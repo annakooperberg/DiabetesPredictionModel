@@ -1,0 +1,50 @@
+---
+title: "dataset-description"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## Data Loading and Processing
+
+https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008?fbclid=IwAR07N48YplnMhoLF3NTeuFQm65xi97lmjX83pTnysFARSVqb-LdmIYCT3Ys
+
+```{r}
+dataset <- read.csv('dataset_diabetes/diabetic_data.csv') %>% mutate(
+  diag_1 = str_sub(diag_1, 0, 3),
+  diag_2 = str_sub(diag_2, 0, 3),
+  diag_3 = str_sub(diag_3, 0, 3)
+  )
+icd.codes <- read.csv('icd_codes.csv')
+diabetes.diagnoses <- c('249', '250', '648')
+```
+
+## Dataset Overview
+
+```{r}
+num.unique.encounters <- dataset %>% select(encounter_id) %>% unique() %>% count()
+num.unique.patients <- dataset %>% select(patient_nbr) %>% unique() %>% count()
+num.diabetic.patients <- dataset %>% select(patient_nbr, diag_1, diag_2, diag_3) %>% gather("diagnosis_num", "diagnosis", -patient_nbr) %>% group_by(patient_nbr) %>% summarise(any(diagnosis %in% diabetes.diagnoses)) %>% count()
+num.medication.changed <- dataset %>% filter(change == 'Ch') %>% count()
+num.readmitted <- dataset %>% filter(readmitted != "NO") %>% count()
+```
+
+The dataset contains `r num.unique.encounters` unique encounters over `r num.unique.patients` unique patients. There are `r num.diabetic.patients` diabetic patients in the dataset. Medications were changed in `r num.medication.changed` of the admissions. `r num.readmitted` admissions did not result in readmission.
+
+### Primary Diagnoses
+
+```{r}
+primary.diagnoses <- dataset %>% group_by(diag_1) %>% count() %>% arrange(desc(n)) %>% left_join(icd.codes, by = c('diag_1' = 'Code'))
+primary.diagnoses %>% head(50) %>% kable()
+```
+
+### Number of Admissions of Patients Taking Diabetes Medication
+
+```{r}
+taking.diabetes.medications <- dataset %>% group_by(diabetesMed) %>% count()
+taking.diabetes.medications %>% kable()
+```
+
