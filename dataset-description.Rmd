@@ -13,20 +13,31 @@ library(knitr)
 https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008?fbclid=IwAR07N48YplnMhoLF3NTeuFQm65xi97lmjX83pTnysFARSVqb-LdmIYCT3Ys
 
 ```{r}
-dataset <- read.csv('dataset_diabetes/diabetic_data.csv') %>% mutate(
-  diag_1 = str_sub(diag_1, 0, 3),
-  diag_2 = str_sub(diag_2, 0, 3),
-  diag_3 = str_sub(diag_3, 0, 3)
-) %>% mutate(
-  diag_1 = ifelse(str_length(diag_1) == 1 & diag_1 != '?', str_c('00', diag_1), diag_1),
-  diag_2 = ifelse(str_length(diag_2) == 1 & diag_2 != '?', str_c('00', diag_2), diag_2),
-  diag_3 = ifelse(str_length(diag_3) == 1 & diag_3 != '?', str_c('00', diag_3), diag_3),
-) %>% mutate(
-  diag_1 = ifelse(str_length(diag_1) == 2 & diag_1 != '?', str_c('0', diag_1), diag_1),
-  diag_2 = ifelse(str_length(diag_2) == 2 & diag_2 != '?', str_c('0', diag_2), diag_2),
-  diag_3 = ifelse(str_length(diag_3) == 2 & diag_3 != '?', str_c('0', diag_3), diag_3),
-)
-write.csv(dataset, file='dataset_diabetes/diabetic_data_cleaned.csv')
+castNum <- function(n, num.places) {
+    x<-as.numeric(as.character(n))
+    if (is.na(x)){
+      return(n)
+    }else{
+      return(as.character(floor(x/10^num.places)*10^num.places))
+    }
+}
+truncate.codes <- function(dataset, num.places) {
+  dataset$diag_1 <- map2(dataset$diag_1, num.places, castNum) %>% unlist()
+  dataset$diag_2 <- map2(dataset$diag_2, num.places, castNum) %>% unlist()
+  dataset$diag_3 <- map2(dataset$diag_3, num.places, castNum) %>% unlist()
+  dataset %>% mutate(
+    diag_1 = ifelse(str_length(diag_1) == 1 & diag_1 != '?', str_c('00', diag_1), diag_1),
+    diag_2 = ifelse(str_length(diag_2) == 1 & diag_2 != '?', str_c('00', diag_2), diag_2),
+    diag_3 = ifelse(str_length(diag_3) == 1 & diag_3 != '?', str_c('00', diag_3), diag_3),
+  ) %>% mutate(
+    diag_1 = ifelse(str_length(diag_1) == 2 & diag_1 != '?', str_c('0', diag_1), diag_1),
+    diag_2 = ifelse(str_length(diag_2) == 2 & diag_2 != '?', str_c('0', diag_2), diag_2),
+    diag_3 = ifelse(str_length(diag_3) == 2 & diag_3 != '?', str_c('0', diag_3), diag_3),
+  )
+  write.csv(dataset, file=str_c('dataset_diabetes/diabetic_data_cleaned', num.places, '.csv'))
+  dataset
+}
+dataset <- read.csv('dataset_diabetes/diabetic_data.csv')
 icd.codes <- read.csv('icd_codes.csv')
 diabetes.diagnoses <- c('249', '250', '648')
 ```
@@ -45,8 +56,9 @@ The dataset contains `r num.unique.encounters` unique encounters over `r num.uni
 
 ### Primary Diagnoses
 
-```{r}
-primary.diagnoses <- dataset %>% group_by(diag_1) %>% count() %>% arrange(desc(n)) %>% left_join(icd.codes, by = c('diag_1' = 'Code'))
+```{r warning=FALSE}
+processed.data <- truncate.codes(dataset, 0) # process diagnosis codes to the nearest integer
+primary.diagnoses <- processed.data %>% group_by(diag_1) %>% count() %>% arrange(desc(n)) %>% left_join(icd.codes, by = c('diag_1' = 'Code'))
 primary.diagnoses %>% head(50) %>% kable()
 ```
 
