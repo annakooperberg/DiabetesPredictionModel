@@ -369,19 +369,31 @@ summary {
 <div id="data-loading-and-processing" class="section level2">
 <h2>Data Loading and Processing</h2>
 <p><a href="https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008?fbclid=IwAR07N48YplnMhoLF3NTeuFQm65xi97lmjX83pTnysFARSVqb-LdmIYCT3Ys" class="uri">https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008?fbclid=IwAR07N48YplnMhoLF3NTeuFQm65xi97lmjX83pTnysFARSVqb-LdmIYCT3Ys</a></p>
-<pre class="r"><code>dataset &lt;- read.csv('dataset_diabetes/diabetic_data.csv') %&gt;% mutate(
-  diag_1 = str_sub(diag_1, 0, 3),
-  diag_2 = str_sub(diag_2, 0, 3),
-  diag_3 = str_sub(diag_3, 0, 3)
-) %&gt;% mutate(
-  diag_1 = ifelse(str_length(diag_1) == 1 &amp; diag_1 != '?', str_c('00', diag_1), diag_1),
-  diag_2 = ifelse(str_length(diag_2) == 1 &amp; diag_2 != '?', str_c('00', diag_2), diag_2),
-  diag_3 = ifelse(str_length(diag_3) == 1 &amp; diag_3 != '?', str_c('00', diag_3), diag_3),
-) %&gt;% mutate(
-  diag_1 = ifelse(str_length(diag_1) == 2 &amp; diag_1 != '?', str_c('0', diag_1), diag_1),
-  diag_2 = ifelse(str_length(diag_2) == 2 &amp; diag_2 != '?', str_c('0', diag_2), diag_2),
-  diag_3 = ifelse(str_length(diag_3) == 2 &amp; diag_3 != '?', str_c('0', diag_3), diag_3),
-)
+<pre class="r"><code>castNum &lt;- function(n, num.places) {
+    x&lt;-as.numeric(as.character(n))
+    if (is.na(x)){
+      return(n)
+    }else{
+      return(as.character(floor(x/10^num.places)*10^num.places))
+    }
+}
+truncate.codes &lt;- function(dataset, num.places) {
+  dataset$diag_1 &lt;- map2(dataset$diag_1, num.places, castNum) %&gt;% unlist()
+  dataset$diag_2 &lt;- map2(dataset$diag_2, num.places, castNum) %&gt;% unlist()
+  dataset$diag_3 &lt;- map2(dataset$diag_3, num.places, castNum) %&gt;% unlist()
+  dataset %&gt;% mutate(
+    diag_1 = ifelse(str_length(diag_1) == 1 &amp; diag_1 != '?', str_c('00', diag_1), diag_1),
+    diag_2 = ifelse(str_length(diag_2) == 1 &amp; diag_2 != '?', str_c('00', diag_2), diag_2),
+    diag_3 = ifelse(str_length(diag_3) == 1 &amp; diag_3 != '?', str_c('00', diag_3), diag_3),
+  ) %&gt;% mutate(
+    diag_1 = ifelse(str_length(diag_1) == 2 &amp; diag_1 != '?', str_c('0', diag_1), diag_1),
+    diag_2 = ifelse(str_length(diag_2) == 2 &amp; diag_2 != '?', str_c('0', diag_2), diag_2),
+    diag_3 = ifelse(str_length(diag_3) == 2 &amp; diag_3 != '?', str_c('0', diag_3), diag_3),
+  )
+  write.csv(dataset, file=str_c('dataset_diabetes/diabetic_data_cleaned', num.places, '.csv'))
+  dataset
+}
+dataset &lt;- read.csv('dataset_diabetes/diabetic_data.csv')
 icd.codes &lt;- read.csv('icd_codes.csv')
 diabetes.diagnoses &lt;- c('249', '250', '648')</code></pre>
 </div>
@@ -389,16 +401,17 @@ diabetes.diagnoses &lt;- c('249', '250', '648')</code></pre>
 <h2>Dataset Overview</h2>
 <pre class="r"><code>num.unique.encounters &lt;- dataset %&gt;% select(encounter_id) %&gt;% unique() %&gt;% count()
 num.unique.patients &lt;- dataset %&gt;% select(patient_nbr) %&gt;% unique() %&gt;% count()
-num.diabetic.patients &lt;- dataset %&gt;% select(patient_nbr, diag_1, diag_2, diag_3) %&gt;% gather(&quot;diagnosis_num&quot;, &quot;diagnosis&quot;, -patient_nbr) %&gt;% group_by(patient_nbr) %&gt;% summarise(any(diagnosis %in% diabetes.diagnoses)) %&gt;% count()
-num.medication.changed &lt;- dataset %&gt;% filter(change == 'Ch') %&gt;% count()
+num.diabetic.patients &lt;- dataset %&gt;% select(patient_nbr, diag_1, diag_2, diag_3) %&gt;% gather(&quot;diagnosis_num&quot;, &quot;diagnosis&quot;, -patient_nbr) %&gt;% group_by(patient_nbr) %&gt;% summarise(any(diagnosis %in% diabetes.diagnoses)) %&gt;% count()</code></pre>
+<pre><code>## Warning: attributes are not identical across measure variables;
+## they will be dropped</code></pre>
+<pre class="r"><code>num.medication.changed &lt;- dataset %&gt;% filter(change == 'Ch') %&gt;% count()
 num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% count()</code></pre>
 <p>The dataset contains 101766 unique encounters over 71518 unique patients. There are 71518 diabetic patients in the dataset. Medications were changed in 47011 of the admissions. 46902 admissions did not result in readmission.</p>
 <div id="primary-diagnoses" class="section level3">
 <h3>Primary Diagnoses</h3>
-<pre class="r"><code>primary.diagnoses &lt;- dataset %&gt;% group_by(diag_1) %&gt;% count() %&gt;% arrange(desc(n)) %&gt;% left_join(icd.codes, by = c('diag_1' = 'Code'))</code></pre>
-<pre><code>## Warning: Column `diag_1`/`Code` joining character vector and factor,
-## coercing into character vector</code></pre>
-<pre class="r"><code>primary.diagnoses %&gt;% head(50) %&gt;% kable()</code></pre>
+<pre class="r"><code>processed.data &lt;- truncate.codes(dataset, 0) # process diagnosis codes to the nearest integer
+primary.diagnoses &lt;- processed.data %&gt;% group_by(diag_1) %&gt;% count() %&gt;% arrange(desc(n)) %&gt;% left_join(icd.codes, by = c('diag_1' = 'Code'))
+primary.diagnoses %&gt;% head(50) %&gt;% kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -450,7 +463,7 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 </tr>
 <tr class="odd">
 <td align="left">715</td>
-<td align="right">2151</td>
+<td align="right">2152</td>
 <td align="left">Osteoarthrosis and allied disorders</td>
 </tr>
 <tr class="even">
@@ -479,9 +492,9 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <td align="left">Disorders of fluid electrolyte and acid-base balance</td>
 </tr>
 <tr class="odd">
-<td align="left">038</td>
+<td align="left">38</td>
 <td align="right">1688</td>
-<td align="left">Septicaemia</td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">599</td>
@@ -494,9 +507,9 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <td align="left">Acute renal failure</td>
 </tr>
 <tr class="even">
-<td align="left">V57</td>
-<td align="right">1207</td>
-<td align="left">Care involving other physical therapy</td>
+<td align="left">710</td>
+<td align="right">1232</td>
+<td align="left">Diffuse diseases of connective tissue</td>
 </tr>
 <tr class="odd">
 <td align="left">518</td>
@@ -589,9 +602,9 @@ num.readmitted &lt;- dataset %&gt;% filter(readmitted != &quot;NO&quot;) %&gt;% 
 <td align="left">Diseases of esophagus</td>
 </tr>
 <tr class="odd">
-<td align="left">008</td>
+<td align="left">8</td>
 <td align="right">515</td>
-<td align="left">Intestinal infections due to other organisms</td>
+<td align="left">NA</td>
 </tr>
 <tr class="even">
 <td align="left">403</td>
