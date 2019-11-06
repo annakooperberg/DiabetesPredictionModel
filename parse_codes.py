@@ -6,8 +6,17 @@ with open('ucod.txt', 'r', encoding = "ISO-8859-1") as f:
     for line in data:
         split_line = line.replace('"', '').replace(',', '').split()
         if len(split_line) > 0:
-            if len(split_line[0]) == 3 and split_line[0].isnumeric():
+            if len(split_line) > 1:
+                if split_line[1] == '|' or ':' in split_line[1]:
+                    continue
+            if len(split_line) > 0:
+                if split_line[0][-1] == '.':
+                    continue
+            try:
+                float(split_line[0])
                 diagnosis_codes[split_line[0]] = " ".join(split_line[1:])
+            except ValueError:
+                continue
 
 with open('icd_codes.csv', 'w', newline='') as csv_f:
     writer = csv.writer(csv_f, delimiter=',', quoting=csv.QUOTE_NONE)
