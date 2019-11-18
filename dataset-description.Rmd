@@ -34,8 +34,6 @@ truncate.codes <- function(dataset, num.places) {
     diag_2 = ifelse(str_length(diag_2) == 2 & diag_2 != '?', str_c('0', diag_2), diag_2),
     diag_3 = ifelse(str_length(diag_3) == 2 & diag_3 != '?', str_c('0', diag_3), diag_3),
   )
-  write.csv(dataset, file=str_c('dataset_diabetes/diabetic_data_cleaned', num.places, '.csv'))
-  dataset
 }
 dataset <- read.csv('dataset_diabetes/diabetic_data.csv')
 icd.codes <- read.csv('icd_codes.csv')

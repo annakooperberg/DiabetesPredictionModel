@@ -390,8 +390,6 @@ truncate.codes &lt;- function(dataset, num.places) {
     diag_2 = ifelse(str_length(diag_2) == 2 &amp; diag_2 != '?', str_c('0', diag_2), diag_2),
     diag_3 = ifelse(str_length(diag_3) == 2 &amp; diag_3 != '?', str_c('0', diag_3), diag_3),
   )
-  write.csv(dataset, file=str_c('dataset_diabetes/diabetic_data_cleaned', num.places, '.csv'))
-  dataset
 }
 dataset &lt;- read.csv('dataset_diabetes/diabetic_data.csv')
 icd.codes &lt;- read.csv('icd_codes.csv')
@@ -492,9 +490,9 @@ primary.diagnoses %&gt;% head(50) %&gt;% kable()</code></pre>
 <td align="left">Disorders of fluid electrolyte and acid-base balance</td>
 </tr>
 <tr class="odd">
-<td align="left">38</td>
+<td align="left">038</td>
 <td align="right">1688</td>
-<td align="left">NA</td>
+<td align="left">Septicaemia</td>
 </tr>
 <tr class="even">
 <td align="left">599</td>
@@ -602,9 +600,9 @@ primary.diagnoses %&gt;% head(50) %&gt;% kable()</code></pre>
 <td align="left">Diseases of esophagus</td>
 </tr>
 <tr class="odd">
-<td align="left">8</td>
+<td align="left">008</td>
 <td align="right">515</td>
-<td align="left">NA</td>
+<td align="left">Intestinal infections due to other organisms</td>
 </tr>
 <tr class="even">
 <td align="left">403</td>
