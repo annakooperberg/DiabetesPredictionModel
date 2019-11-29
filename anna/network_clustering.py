@@ -10,7 +10,8 @@ from sklearn.cluster import SpectralClustering
 FILENAME = '/om2/user/annakoop/DiabetesPredictionModel/dataset_diabetes/diabetic_data.csv'
 TEST_FRACTION = 0.1
 NETWORK_SIZE = 5000
-N_CLUSTERS = 3
+N_CLUSTERS = 2
+POSITIVE_MATCH_SCALE = 3
 
 '''
 Removes encounters such that each patient has maximum one encounter
@@ -52,15 +53,19 @@ def separate_test_train(data):
 '''
 Makes an adjacency matrix based on similar medicines
 '''
-def make_network(data):
+def make_network_meds(data):
     # to insure all nodes are connected, initialize with ones
-    adj = np.ones((len(data), len(data)), dtype=np.int8)
+    adj = np.zeros((len(data), len(data)), dtype=np.int8)
     for x, row1 in enumerate(data):
         for y, row2 in enumerate(data[x + 1:]):
             # medications span indices 24 - 46
             for i in range(24, 47):
-                if row1[i] == row2[i] and row1[i] != 'No':
-                    adj[x, y] += 1 
+                if row1[i] == row2[i]:
+                    adj[x, y + x + 1] += 1
+                    adj[y + x + 1, x] += 1
+                    if row1[i] != 'No':
+                        adj[x, y + x + 1] += 3
+                        adj[y + x + 1, x] += 3
         if x % 200 == 0:
             print(x)
     return adj
@@ -125,10 +130,11 @@ def main():
     print('test dataset size: %d' % len(test_data))
     
     print('making network...')
-    adj = make_network(data[:NETWORK_SIZE])
-
+    adj = make_network_meds(data[:NETWORK_SIZE])
+    np.histogram(adj.flatten())
+    
     print('spectral clustering...')
-    clustering = SpectralClustering(n_clusters=N_CLUSTERS).fit(adj)
+    clustering = SpectralClustering(n_clusters=N_CLUSTERS, affinity='rbf').fit(adj)
     
     print('analyzing clusters...')
     analyze_clusters(data[:NETWORK_SIZE], clustering.labels_)
