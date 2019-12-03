@@ -1,0 +1,53 @@
+---
+title: "icd9-analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## Categories of Different ICD9 Hierarchy Levels
+
+```{r cars}
+raw <- "dataset_diabetes/diabetic_data.csv"
+
+files <- c(
+  "dataset_diabetes/diabetic_data_clustered1.csv",
+  "dataset_diabetes/diabetic_data_clustered2.csv",
+  "dataset_diabetes/diabetic_data_clustered3.csv",
+  "dataset_diabetes/diabetic_data_clustered4.csv",
+  "dataset_diabetes/diabetic_data_clustered5.csv"
+)
+
+num_groups_1 <- function(file) {
+  read.csv(file) %>% select(diag_1_desc) %>% unique() %>% pull(diag_1_desc) %>% length()
+}
+num_groups_2 <- function(file) {
+  read.csv(file) %>% select(diag_2_desc) %>% unique() %>% pull(diag_2_desc) %>% length()
+}
+num_groups_3 <- function(file) {
+  read.csv(file) %>% select(diag_3_desc) %>% unique() %>% pull(diag_3_desc) %>% length()
+}
+num_groups_1_raw <- function(file) {
+  read.csv(file) %>% select(diag_1) %>% unique() %>% pull(diag_1) %>% length()
+}
+num_groups_2_raw <- function(file) {
+  read.csv(file) %>% select(diag_2) %>% unique() %>% pull(diag_2) %>% length()
+}
+num_groups_3_raw <- function(file) {
+  read.csv(file) %>% select(diag_3) %>% unique() %>% pull(diag_3) %>% length()
+}
+df.levels <- tibble(file=files) %>% mutate(
+  groups_1=map(file, num_groups_1) %>% unlist(),
+  groups_2=map(file, num_groups_2) %>% unlist(),
+  groups_3=map(file, num_groups_3) %>% unlist(),
+) %>% add_row(
+  file=raw,
+  groups_1=map(file, num_groups_1_raw) %>% unlist(),
+  groups_2=map(file, num_groups_2_raw) %>% unlist(),
+  groups_3=map(file, num_groups_3_raw) %>% unlist(),
+)
+df.levels %>% kable()
+```
