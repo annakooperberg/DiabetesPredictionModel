@@ -5,10 +5,13 @@ import sys
 
 from networkx.algorithms import bipartite
 from random import shuffle
+from sklearn.cluster import SpectralClustering
 
 FILENAME = '/om2/user/annakoop/DiabetesPredictionModel/dataset_diabetes/diabetic_data.csv'
 TEST_FRACTION = 0.1
 NETWORK_SIZE = 5000
+N_CLUSTERS = 2
+POSITIVE_MATCH_SCALE = 3
 
 '''
 Removes encounters such that each patient has maximum one encounter
@@ -50,14 +53,19 @@ def separate_test_train(data):
 '''
 Makes an adjacency matrix based on similar medicines
 '''
-def make_network(data):
+def make_network_meds(data):
+    # to insure all nodes are connected, initialize with ones
     adj = np.zeros((len(data), len(data)), dtype=np.int8)
     for x, row1 in enumerate(data):
         for y, row2 in enumerate(data[x + 1:]):
             # medications span indices 24 - 46
             for i in range(24, 47):
-                if row1[i] == row2[i] and row1[i] != 'No':
-                    adj[x, y] += 1 
+                if row1[i] == row2[i]:
+                    adj[x, y + x + 1] += 1
+                    adj[y + x + 1, x] += 1
+                    if row1[i] != 'No':
+                        adj[x, y + x + 1] += 3
+                        adj[y + x + 1, x] += 3
         if x % 200 == 0:
             print(x)
     return adj
@@ -74,21 +82,42 @@ def print_stats(group, name):
     print('meds: ', meds)
     print('res: ', res)
     
-'''
-Use spectral clustering to divide network into two groups
-'''
-def spectral_clustering(graph):
-    res = bipartite.spectral_bipartivity(graph)
-    group_1 = set()
-    group_2 = set()
-    for node in res:
-        if res[node] > 0:
-            group_1.add(node)
-        else:
-            group_2.add(node)
-    print_stats(group_1, 'group 1')
-    print_stats(group_1, 'group 1')
-    return group_1, group_2
+# '''
+# Use spectral clustering to divide network into two groups
+# '''
+# def spectral_clustering(graph):
+#     res = bipartite.spectral_bipartivity(graph)
+#     print(res)
+#     group_1 = set()
+#     group_2 = set()
+#     for node in res:
+#         if res[node] > 0:
+#             group_1.add(node)
+#         else:
+#             group_2.add(node)
+#     print_stats(group_1, 'group 1')
+#     print_stats(group_1, 'group 1')
+#     return group_1, group_2
+
+def analyze_clusters(data, labels):
+    cluster_sizes = [0]*N_CLUSTERS
+    readmission_frac = [0]*N_CLUSTERS
+    meds_frac = [[0 for i in range(23)] for j in range(N_CLUSTERS)]
+    for i, row in enumerate(data):
+        c = labels[i]
+        cluster_sizes[c] += 1
+        if row[49] == '<30' or row[49] == '>30':
+            readmission_frac[c] += 1
+        for m in range(24, 47):
+            if row[m] != 'No':
+                meds_frac[c][m - 24] += 1
+    print('cluster sizes: ', cluster_sizes)
+    readmission_frac = [readmission_frac[i]/cluster_sizes[i] for i in range(N_CLUSTERS)]
+    print('readmission fraction by cluster: ', readmission_frac)
+    for i in range(N_CLUSTERS):
+        meds_frac[i] = [meds_frac[i][j] / cluster_sizes[i] for j in range(23)]
+    print('meds fraction by cluster: ', meds_frac)
+        
 
 def main():
     print('reading data from file...')
@@ -101,12 +130,14 @@ def main():
     print('test dataset size: %d' % len(test_data))
     
     print('making network...')
-    adj = make_network(data[:NETWORK_SIZE])
-    print(adj.shape)
-    graph = nx.from_numpy_matrix(adj)
+    adj = make_network_meds(data[:NETWORK_SIZE])
+    np.histogram(adj.flatten())
     
     print('spectral clustering...')
-    group_1, group_2 = spectral_clustering(graph)
+    clustering = SpectralClustering(n_clusters=N_CLUSTERS, affinity='rbf').fit(adj)
+    
+    print('analyzing clusters...')
+    analyze_clusters(data[:NETWORK_SIZE], clustering.labels_)
     
 
 if __name__ == '__main__':
