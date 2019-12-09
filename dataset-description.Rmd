@@ -58,6 +58,27 @@ The dataset contains `r num.unique.encounters` unique encounters over `r num.uni
 processed.data <- truncate.codes(dataset, 0) # process diagnosis codes to the nearest integer
 primary.diagnoses <- processed.data %>% group_by(diag_1) %>% count() %>% arrange(desc(n)) %>% left_join(icd.codes, by = c('diag_1' = 'Code'))
 primary.diagnoses %>% head(50) %>% kable()
+
+dataset <- read.csv('dataset_diabetes/diabetic_data_clustered3.csv')
+dataset %>% filter(diag_1_desc != "") %>% group_by(diag_1_desc) %>% count() %>% arrange(desc(n)) %>% head(10) %>% ggplot() +
+  geom_col(aes(x=fct_reorder(diag_1_desc, n), y=n, fill=diag_1_desc)) +
+  coord_flip() +
+  xlab('Diagnosis') +
+  ylab('Number of Patients') +
+  scale_color_discrete(c("#4878D0", "#EE854A", "#6ACC64", "#D65F5F", "#956CB4", "#8C613C", "#DC7EC0", "#797979", "#D5BB67", "#82C6E2")) +
+  scale_fill_manual(values=c("#4878D0", "#EE854A", "#6ACC64", "#D65F5F", "#956CB4", "#8C613C", "#DC7EC0", "#797979", "#D5BB67", "#82C6E2")) +
+  theme(legend.position = "none", text = element_text(size=15))
+
+ggsave('~/Desktop/diagnoses.png', height=5, width=9)
+
+dataset %>% ggplot(aes(x=time_in_hospital)) +
+  geom_histogram(bins=15) +
+  xlab('Time Spent in Hospital (Days)') +
+  ylab('Count') +
+  theme(text = element_text(size=15))
+
+
+ggsave('~/Desktop/hospital_time.png', height=5, width=9)
 ```
 
 ### Number of Admissions of Patients Taking Diabetes Medication
